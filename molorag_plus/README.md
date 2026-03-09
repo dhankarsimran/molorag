@@ -1,6 +1,10 @@
 # MoLoRAG+: Distilled Logical Retrieval Augmented Generation
 
-MoLoRAG+ is an optimized version of MoLoRAG that uses knowledge distillation to train a smaller, local retriever.
+MoLoRAG+ is an optimized version of MoLoRAG that uses knowledge distillation to train a smaller, local retriever for efficient inference on consumer hardware.
+
+## 0. Links
+- **Original Paper Repository**: [https://github.com/WxxShirley/MoLoRAG](https://github.com/WxxShirley/MoLoRAG)
+- **Reproduction Repository**: [Your GitHub Link Here]
 
 ## 1. Dependencies
 - Python 3.10+
@@ -8,33 +12,41 @@ MoLoRAG+ is an optimized version of MoLoRAG that uses knowledge distillation to 
 - Transformers & PEFT (HuggingFace)
 - qwen_vl_utils
 - fitz (PyMuPDF)
+- datasets
+- tqdm
 
-Install:
+Install all dependencies via:
 ```bash
-pip install torch transformers peft qwen_vl_utils pymupdf
+pip install -r requirements.txt
 ```
 
-## 2. Data Generation (Distillation)
+## 2. Data Download Instructions
+The system uses the **MMLongBench-Doc** and **LongDocURL** datasets for distillation.
+1. Download the PDFs from the [official MoLoRAG repository](https://github.com/WxxShirley/MoLoRAG).
+2. Create a `dataset/` folder in this directory.
+3. Place the PDF files in `dataset/MMLong` and `dataset/LongDocURL`.
+
+## 3. Data Generation (Distillation)
 To generate the training triplets (Question, Image, Score) using a Qwen teacher model:
 ```bash
 python generate_data_qwen.py
 ```
 This script samples document pages and uses the teacher model to assign logical relevance scores.
 
-## 3. Training (LoRA Fine-tuning)
+## 4. Training Command (LoRA Fine-tuning)
 To fine-tune the Qwen2.5-VL-3B model on your local MacBook:
 ```bash
 python train_qwen_lora.py
 ```
-Key parameters are optimized for Apple Silicon (MPS).
+This script utilizes LoRA (Rank 8) and is optimized for Apple Silicon (MPS).
 
-## 4. Evaluation
+## 5. Evaluation Command
 To evaluate the fine-tuned MoLoRAG+ v2 model:
 ```bash
 python molorag_v2_eval.py
 ```
-This script tests the model on MMLongBench and LongDocURL datasets.
+This script tests the model on MMLongBench and LongDocURL datasets and outputs Recall, NDCG, and MRR.
 
-## 5. Pretrained Models
-- **Teacher**: Qwen2.5-VL-3B-Instruct (Local distillation)
-- **Student**: Qwen2.5-VL-3B (Fine-tuned with LoRA)
+## 6. Pretrained Models
+- **Teacher**: `Qwen/Qwen2.5-VL-3B-Instruct` (Local distillation)
+- **Student**: `Qwen/Qwen2.5-VL-3B` (Fine-tuned with LoRA adapters)
