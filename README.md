@@ -21,6 +21,7 @@ The system expects a `dataset/` folder at the root:
 molorag/
 ├── baseline/              # Original MoLoRAG core implementation
 ├── dataset/               # Consolidated dataset folder
+├── M3docrag/              # M3DocRAG experimental notebooks
 └── molorag/               # Research implementations
     ├── molorag_standard/  # Contains molorag_local_eval.py
     └── molorag_plus/      # Enhanced implementation files
@@ -50,6 +51,10 @@ Enhanced version featuring a fine-tuned VLM for logical relevance scoring.
 Official reproduction scripts for paper baseline results.
 - **Run QA**: `python baseline/main.py --dataset MMLong --model_name QwenVL-3B`
 - **Evaluation**: `python baseline/main_eval.py --dataset MMLong`
+
+### [M3docrag](./M3docrag)
+Collection of Jupyter notebooks for M3DocRAG experiments and baseline testing.
+- Includes baseline experiments, local testing, and final reproduction notebooks.
 
 ## 4. Models Used
 - **Vision-Language Model**: `Qwen/Qwen2.5-VL-3B-Instruct`
