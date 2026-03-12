@@ -27,11 +27,11 @@ molorag/
 ```
 
 ## 3. Project Components
-### [molorag_standard](file:///Users/niteeshkumar/Documents/molorag_2/molorag/molorag/molorag_standard)
+### [molorag_standard](./molorag/molorag_standard)
 Original implementation of the hierarchical graph-based traversal.
 - **Evaluation**: `python molorag/molorag_standard/molorag_local_eval.py`
 
-### [molorag_plus](file:///Users/niteeshkumar/Documents/molorag_2/molorag/molorag/molorag_plus)
+### [molorag_plus](./molorag/molorag_plus)
 Enhanced version featuring a fine-tuned VLM for logical relevance scoring.
 - **Preprocessing**: Generate training data from documents.
   ```bash
@@ -46,7 +46,7 @@ Enhanced version featuring a fine-tuned VLM for logical relevance scoring.
   python molorag/molorag_plus/molorag_v2_eval.py
   ```
 
-### [baseline](file:///Users/niteeshkumar/Documents/molorag_2/molorag/baseline)
+### [baseline](./baseline)
 Official reproduction scripts for paper baseline results.
 - **Run QA**: `python baseline/main.py --dataset MMLong --model_name QwenVL-3B`
 - **Evaluation**: `python baseline/main_eval.py --dataset MMLong`
