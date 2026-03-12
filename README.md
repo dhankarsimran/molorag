@@ -1,24 +1,12 @@
-# MoLoRAG Reproduction: Multi-Modal Document RAG
+# MoLoRAG: Multi-modal Logic-aware RAG
 
-This repository contains the reproduction efforts for the **MoLoRAG** (Multi-modal Long-document RAG) paper. The goal of this project is to evaluate the performance of multi-modal retrieval (M3DocRAG) against traditional text-based RAG on long-document benchmarks such as **MMLongBench** and **LongDocURL**.
+MoLoRAG is a high-performance retrieval system for long-form multi-modal documents. This repository contains the core implementation, evaluation suite, and training scripts.
 
-## Repository Structure
-
-A clean organization for the reproduction efforts:
-
-```text
-MoLoRAG_Reproduction/
-├── MoLoRAG/               # Core implementation (cloned from original source)
-├── data/                  # Dataset metadata (samples_*.json)
-├── notebooks/             # Reproduction experiment notebooks (Colab-ready)
-│   ├── 01_text_rag_eval.ipynb
-│   └── 02_m3doc_rag_eval.ipynb
-├── results/               # Generated metrics and result files
-│   └── m3docrag_report.md
-├── scripts/               # Helper scripts for local testing
-│   └── run_mini_experiment.py
-├── requirements.txt       # Project dependencies
-└── README.md              # This file
+## 1. Quick Start
+### Dependencies
+Ensure you have Python 3.10+ and install the required packages:
+```bash
+pip install torch torchvision transformers qwen_vl_utils peft accelerate bitsandbytes PyMuPDF networkx pillow tqdm scikit-learn
 ```
 
 ## Getting Started
@@ -32,19 +20,51 @@ MoLoRAG_Reproduction/
    ```bash
    pip install -r requirements.txt
    ```
+### Data Download
+The system expects a `dataset/` folder at the root:
+1. Download the **MMLongBench** and **LongDocURL** datasets.
+2. Place the PDF documents in `dataset/MMLong/` and `dataset/LongDocURL/`.
+3. Place the metadata JSON files (`samples_*.json`) in the `dataset/` root.
 
-### Running the Experiments
-- **Colab**: Open the notebooks in the `notebooks/` folder. Ensure you have a T4 or L4 GPU.
-- **Local Mini-Experiment**: To test the evaluation pipeline without a GPU:
+## 2. Project Structure
+
+```text
+molorag/
+├── baseline/              # Original MoLoRAG core implementation
+├── dataset/               # Consolidated dataset folder
+└── molorag/               # Research implementations
+    ├── molorag_standard/  # Contains molorag_local_eval.py
+    └── molorag_plus/      # Enhanced implementation files
+```
+
+## 3. Project Components
+### [molorag_standard](./molorag/molorag_standard)
+Original implementation of the hierarchical graph-based traversal.
+- **Evaluation**: `python molorag/molorag_standard/molorag_local_eval.py`
+
+### [molorag_plus](./molorag/molorag_plus)
+Enhanced version featuring a fine-tuned VLM for logical relevance scoring.
+- **Preprocessing**: Generate training data from documents.
   ```bash
-  python scripts/run_mini_experiment.py
+  python molorag/molorag_plus/generate_data_qwen.py
+  ```
+- **Training**: Fine-tune the VLM using LoRA.
+  ```bash
+  python molorag/molorag_plus/train_qwen_lora.py
+  ```
+- **Evaluation**: Run evaluation with the fine-tuned adapter.
+  ```bash
+  python molorag/molorag_plus/molorag_v2_eval.py
   ```
 
-## Technical Fixes
-During reproduction, several stability fixes were implemented:
-- **FP16 Stability**: Enforced FP16 loading to prevent `bitsandbytes` quantization errors on T4 GPUs.
-- **Device Management**: Implemented `device_map="auto"` to resolve "meta tensor" synchronization issues.
-- **Retrieval Logic**: Standalone evaluation script for Recall, Precision, NDCG, and MRR.
+### [baseline](./baseline)
+Official reproduction scripts for paper baseline results.
+- **Run QA**: `python baseline/main.py --dataset MMLong --model_name QwenVL-3B`
+- **Evaluation**: `python baseline/main_eval.py --dataset MMLong`
 
-## 📜 Citation
-If you use this code, please cite the original MoLoRAG paper.
+## 4. Models Used
+- **Vision-Language Model**: `Qwen/Qwen2.5-VL-3B-Instruct`
+- **Embedding Model**: `openai/clip-vit-large-patch14`
+
+📜 **Citation**
+If you use this code, please refer to the original MoLoRAG paper and this reproduction effort.

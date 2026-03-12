@@ -1,9 +1,0 @@
-torch
-transformers
-peft
-qwen_vl_utils
-pymupdf
-datasets
-tqdm
-numpy
-pillow
