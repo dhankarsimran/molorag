@@ -27,7 +27,6 @@ MoLoRAG_Reproduction/
 1. Clone the repository:
    ```bash
    git clone https://github.com/dhankarsimran/molorag.git
-   cd MoLoRAG_Reproduction
    ```
 2. Install dependencies:
    ```bash
