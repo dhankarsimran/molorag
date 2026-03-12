@@ -1,0 +1,10 @@
+torch
+torchvision
+transformers
+qwen_vl_utils
+numpy
+pillow
+PyMuPDF
+networkx
+tqdm
+scikit-learn

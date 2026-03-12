@@ -1,0 +1,12 @@
+torch
+torchvision
+transformers
+qwen_vl_utils
+peft
+accelerate
+bitsandbytes
+numpy
+pillow
+PyMuPDF
+networkx
+tqdm
