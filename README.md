@@ -1,8 +1,21 @@
-# MoLoRAG Project
+# MoLoRAG: Multi-modal Logic-aware RAG
 
-This repository contains the structured components for the MoLoRAG project.
+MoLoRAG is a high-performance retrieval system for long-form multi-modal documents. This repository contains the core implementation, evaluation suite, and training scripts.
 
-## Project Structure
+## 1. Quick Start
+### Dependencies
+Ensure you have Python 3.10+ and install the required packages:
+```bash
+pip install torch torchvision transformers qwen_vl_utils peft accelerate bitsandbytes PyMuPDF networkx pillow tqdm scikit-learn
+```
+
+### Data Download
+The system expects a `dataset/` folder at the root:
+1. Download the **MMLongBench** and **LongDocURL** datasets.
+2. Place the PDF documents in `dataset/MMLong/` and `dataset/LongDocURL/`.
+3. Place the metadata JSON files (`samples_*.json`) in the `dataset/` root.
+
+## 2. Project Structure
 
 ```text
 molorag/
@@ -11,25 +24,36 @@ molorag/
 └── molorag/               # Research implementations
     ├── molorag_standard/  # Contains molorag_local_eval.py
     └── molorag_plus/      # Enhanced implementation files
-
-Switch to branch - main_2
-- For M3DOCRAG baseline code
 ```
 
-## Getting Started
+## 3. Project Components
+### [molorag_standard](file:///Users/niteeshkumar/Documents/molorag_2/molorag/molorag/molorag_standard)
+Original implementation of the hierarchical graph-based traversal.
+- **Evaluation**: `python molorag/molorag_standard/molorag_local_eval.py`
 
-1. **Baseline**: Core implementation and evaluation scripts.
-2. **MoLoRAG+**: Enhanced version with additional features.
-3. **Dataset**: Contains JSON samples and document folders for both implementations.
+### [molorag_plus](file:///Users/niteeshkumar/Documents/molorag_2/molorag/molorag/molorag_plus)
+Enhanced version featuring a fine-tuned VLM for logical relevance scoring.
+- **Preprocessing**: Generate training data from documents.
+  ```bash
+  python molorag/molorag_plus/generate_data_qwen.py
+  ```
+- **Training**: Fine-tune the VLM using LoRA.
+  ```bash
+  python molorag/molorag_plus/train_qwen_lora.py
+  ```
+- **Evaluation**: Run evaluation with the fine-tuned adapter.
+  ```bash
+  python molorag/molorag_plus/molorag_v2_eval.py
+  ```
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/dhankarsimran/molorag.git
-   ```
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-📜 Citation
-If you use this code, please also refer the original MoLoRAG paper.
+### [baseline](file:///Users/niteeshkumar/Documents/molorag_2/molorag/baseline)
+Official reproduction scripts for paper baseline results.
+- **Run QA**: `python baseline/main.py --dataset MMLong --model_name QwenVL-3B`
+- **Evaluation**: `python baseline/main_eval.py --dataset MMLong`
+
+## 4. Models Used
+- **Vision-Language Model**: `Qwen/Qwen2.5-VL-3B-Instruct`
+- **Embedding Model**: `openai/clip-vit-large-patch14`
+
+📜 **Citation**
+If you use this code, please refer to the original MoLoRAG paper and this reproduction effort.

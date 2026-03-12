@@ -9,10 +9,15 @@ This folder contains the original code used to reproduce the MoLoRAG paper resul
 - `LLMBaseline/`: Contain traditional text-based RAG baselines.
 - `VLMRetriever/`: Original retrieval scripts using different methods (base, beamsearch).
 
-## Configuration
+## Running Baseline
 
-Modify the `parser` arguments in `main.py` to select the dataset, model, and retriever.
+Execute these commands from the repository root:
 
-```bash
-python main.py --dataset MMLong --model_name QwenVL-3B --retriever base
-```
+- **Run QA Inference**
+  ```bash
+  python baseline/main.py --dataset MMLong --model_name QwenVL-3B --retriever base
+  ```
+- **Run Scoring / Evaluation**
+  ```bash
+  python baseline/main_eval.py --dataset MMLong
+  ```

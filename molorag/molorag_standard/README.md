@@ -17,7 +17,8 @@ The standard implementation uses:
 Ensure you have the `dataset/` folder at the root with the required JSON samples and PDF documents.
 
 ```bash
-python molorag_local_eval.py
+# Run evaluation (execute from the repository root)
+python molorag/molorag_standard/molorag_local_eval.py
 ```
 
 ## Features

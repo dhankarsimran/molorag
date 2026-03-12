@@ -19,6 +19,17 @@ MoLoRAG+ is an enhanced version of the MoLoRAG retrieval engine, featuring a fin
 
 Requires a fine-tuned adapter path (default: `outputs/final_adapter`).
 
-```bash
-python molorag_v2_eval.py
-```
+### Commands (Execute from repository root)
+
+- **Step 1: Preprocessing** (Generate data)
+  ```bash
+  python molorag/molorag_plus/generate_data_qwen.py
+  ```
+- **Step 2: Training** (Fine-tune model)
+  ```bash
+  python molorag/molorag_plus/train_qwen_lora.py
+  ```
+- **Step 3: Evaluation** (Run retrieval)
+  ```bash
+  python molorag/molorag_plus/molorag_v2_eval.py
+  ```
