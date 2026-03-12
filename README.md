@@ -20,31 +20,12 @@ MoLoRAG_Reproduction/
 ├── requirements.txt       # Project dependencies
 └── README.md              # This file
 ```
-
-## Reproduction Results
-
-### 1. QA Accuracy (%)
-| Dataset | Text RAG (Qwen-7B) | M3DocRAG (MoLoRAG) |
-| :--- | :---: | :---: |
-| **MMLongBench** | 25.52 | **48.12** |
-| **LongDocURL** | 27.93 | **52.45** |
-| **Average** | 26.56 | **46.01** |
-
-### 2. Retrieval Performance (NDCG @ Top-K)
-| Top-K | Method | MMLongBench | LongDocURL |
-| :---: | :--- | :---: | :---: |
-| **1** | **M3DocRAG** | 56.67 | 64.66 |
-| | **TextRAG** | 38.99 | 58.37 |
-| **3** | **M3DocRAG** | 54.13 | 58.23 |
-| | **TextRAG** | 37.13 | 54.12 |
-
 ## Getting Started
 
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/[YOUR_USERNAME]/MoLoRAG_Reproduction.git
-   cd MoLoRAG_Reproduction
+   git clone https://github.com/dhankarsimran/molorag.git
    ```
 2. Install dependencies:
    ```bash
