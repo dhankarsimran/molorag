@@ -9,6 +9,17 @@ Ensure you have Python 3.10+ and install the required packages:
 pip install torch torchvision transformers qwen_vl_utils peft accelerate bitsandbytes PyMuPDF networkx pillow tqdm scikit-learn
 ```
 
+## Getting Started
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dhankarsimran/molorag.git
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 ### Data Download
 The system expects a `dataset/` folder at the root:
 1. Download the **MMLongBench** and **LongDocURL** datasets.
